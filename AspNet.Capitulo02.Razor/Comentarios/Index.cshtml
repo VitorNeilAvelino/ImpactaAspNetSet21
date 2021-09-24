@@ -1,0 +1,65 @@
+﻿@using AspNet.Capitulo02.Razor.Comentarios
+
+@{ 
+    var aplicacao = new ComentarioAplicacao();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Comentários</title>
+    <style>
+        label {
+            min-width: 100px;
+            display: inline-block;
+        }
+
+            label[for=comentario] {
+                vertical-align: top;
+            }
+
+        input, textarea {
+            min-width: 50%;
+            min-height: 28px;
+            margin-bottom: 5px;
+        }
+
+            input[type=submit] {
+                min-width: 300px;
+                margin-left: 105px;
+            }
+    </style>
+</head>
+<body>
+    @{
+        if (IsPost)
+        {
+            aplicacao.Inserir(Request["nome"], Request["comentario"]);
+        }
+    }
+
+    <h1>Comentários</h1>
+    <hr />
+    @*<form style="text-align:center;display:flex;justify-content:center;align-items:center">*@
+    @*<form action="">*@
+    <form method="post">
+        <label for="nome">Nome</label>
+        <input type="text" name="nome" />
+        <br />
+        <label for="comentario">Comentário</label>
+        <textarea name="comentario" rows="10"></textarea>
+        @*<p />*@
+        <br />
+        <input type="submit" value="Gravar" />
+    </form>
+    <hr />
+    @foreach (var comentario in aplicacao.Selecionar())
+    {
+        <p>@comentario.Data.ToString("d") - @comentario.Comentarista</p>
+        <p>@comentario.Conteudo</p>
+        <br />
+    }
+</body>
+</html>
