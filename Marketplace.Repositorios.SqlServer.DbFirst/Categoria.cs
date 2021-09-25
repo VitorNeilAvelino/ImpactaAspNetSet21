@@ -17,13 +17,13 @@ namespace Marketplace.Repositorios.SqlServer.DbFirst
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Categoria()
         {
-            this.Produtoes = new HashSet<Produto>();
+            this.Produtos = new HashSet<Produto>();
         }
     
         public int Id { get; set; }
         public string Descricao { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Produto> Produtoes { get; set; }
+        public virtual ICollection<Produto> Produtos { get; set; }
     }
 }

@@ -158,7 +158,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descricao" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Produtoes" Relationship="Self.FK__Produto__IdCateg__2C3393D0" FromRole="Categoria" ToRole="Produto" />
+          <NavigationProperty Name="Produtos" Relationship="Self.FK__Produto__IdCateg__2C3393D0" FromRole="Categoria" ToRole="Produto" />
         </EntityType>
         <EntityType Name="Cliente">
           <Key>
@@ -169,7 +169,7 @@
           <Property Name="Nome" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Pedidoes" Relationship="Self.FK__Pedido__IdClient__276EDEB3" FromRole="Cliente" ToRole="Pedido" />
+          <NavigationProperty Name="Pedidos" Relationship="Self.FK__Pedido__IdClient__276EDEB3" FromRole="Cliente" ToRole="Pedido" />
         </EntityType>
         <EntityType Name="ItemPedido">
           <Key>
@@ -191,7 +191,7 @@
           <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Numero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK__Pedido__IdClient__276EDEB3" FromRole="Pedido" ToRole="Cliente" />
-          <NavigationProperty Name="ItemPedidoes" Relationship="Self.FK__ItemPedid__IdPed__31EC6D26" FromRole="Pedido" ToRole="ItemPedido" />
+          <NavigationProperty Name="ItemPedidos" Relationship="Self.FK__ItemPedid__IdPed__31EC6D26" FromRole="Pedido" ToRole="ItemPedido" />
         </EntityType>
         <EntityType Name="Produto">
           <Key>
@@ -203,8 +203,8 @@
           <Property Name="Unidade" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Preco" Type="Decimal" Precision="11" Scale="2" Nullable="false" />
           <NavigationProperty Name="Categoria" Relationship="Self.FK__Produto__IdCateg__2C3393D0" FromRole="Produto" ToRole="Categoria" />
-          <NavigationProperty Name="ItemPedidoes" Relationship="Self.FK__ItemPedid__IdPro__32E0915F" FromRole="Produto" ToRole="ItemPedido" />
-          <NavigationProperty Name="ProdutoFotoes" Relationship="Self.FK__ProdutoFo__IdPro__2F10007B" FromRole="Produto" ToRole="ProdutoFoto" />
+          <NavigationProperty Name="ItemPedidos" Relationship="Self.FK__ItemPedid__IdPro__32E0915F" FromRole="Produto" ToRole="ItemPedido" />
+          <NavigationProperty Name="ProdutoFotos" Relationship="Self.FK__ProdutoFo__IdPro__2F10007B" FromRole="Produto" ToRole="ProdutoFoto" />
         </EntityType>
         <EntityType Name="ProdutoFoto">
           <Key>

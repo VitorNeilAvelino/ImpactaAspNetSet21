@@ -17,7 +17,7 @@ namespace Marketplace.Repositorios.SqlServer.DbFirst
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cliente()
         {
-            this.Pedidoes = new HashSet<Pedido>();
+            this.Pedidos = new HashSet<Pedido>();
         }
     
         public int Id { get; set; }
@@ -27,6 +27,6 @@ namespace Marketplace.Repositorios.SqlServer.DbFirst
         public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pedido> Pedidoes { get; set; }
+        public virtual ICollection<Pedido> Pedidos { get; set; }
     }
 }
