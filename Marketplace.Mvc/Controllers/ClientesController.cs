@@ -94,6 +94,8 @@ namespace Marketplace.Mvc.Controllers
         }
 
         // GET: Clientes/Edit/5
+        [Authorize(Roles = "Administrador, Gerente")]
+        //[Authorize(Roles = "Pós-Venda")]
         public ActionResult Edit(int id)
         {
             return View(Mapear(clienteRepositorio.Selecionar(id)));
@@ -102,6 +104,7 @@ namespace Marketplace.Mvc.Controllers
         // POST: Clientes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador, Gerente")]
         public ActionResult Edit(int id, ClienteViewModel viewModel)
         {
             try
