@@ -1,13 +1,12 @@
 ﻿using GatewayPagamento.Dominio.Entidades;
+using GatewayPagamento.Dominio.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GatewayPagamento.Repositorios.SqlServer.CodeFirst
 {
-    public class PagamentoRepositorio
+    public class PagamentoRepositorio : IPagamentoRepositorio
     {
         public List<Pagamento> Selecionar(string numeroCartao)
         {
