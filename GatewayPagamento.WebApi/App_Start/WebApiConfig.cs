@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Newtonsoft.Json.Serialization;
 
 namespace GatewayPagamento.WebApi
 {
@@ -22,6 +23,9 @@ namespace GatewayPagamento.WebApi
 
             config.Formatters.Remove(config.Formatters.XmlFormatter);
             config.Formatters.Add(config.Formatters.JsonFormatter);
+
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
+                new CamelCasePropertyNamesContractResolver();
         }
     }
 }

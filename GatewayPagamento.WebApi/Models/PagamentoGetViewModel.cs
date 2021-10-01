@@ -1,10 +1,10 @@
-﻿using GatewayPagamento.Dominio.Entidades;
-using System;
+﻿using GatewayPagamento.Apoio;
+using GatewayPagamento.Dominio.Entidades;
 using System.Collections.Generic;
 
 namespace GatewayPagamento.WebApi.Models
 {
-    public class PagamentoViewModel
+    public class PagamentoGetViewModel
     {
         public int Id { get; set; }
         public string MascaraCartao { get; set; }
@@ -13,9 +13,9 @@ namespace GatewayPagamento.WebApi.Models
         public int Status { get; set; }
         public string MensagemStatus { get; set; }
 
-        internal static IEnumerable<PagamentoViewModel> Mapear(List<Pagamento> pagamentos)
+        internal static IEnumerable<PagamentoGetViewModel> Mapear(List<Pagamento> pagamentos)
         {
-            var viewModels = new List<PagamentoViewModel>();
+            var viewModels = new List<PagamentoGetViewModel>();
 
             foreach (var pagamento in pagamentos)
             {
@@ -25,9 +25,9 @@ namespace GatewayPagamento.WebApi.Models
             return viewModels;
         }
 
-        private static PagamentoViewModel Mapear(Pagamento pagamento)
+        private static PagamentoGetViewModel Mapear(Pagamento pagamento)
         {
-            var viewModel = new PagamentoViewModel();
+            var viewModel = new PagamentoGetViewModel();
 
             viewModel.Id = pagamento.Id;
 
@@ -37,6 +37,8 @@ namespace GatewayPagamento.WebApi.Models
             viewModel.NumeroPedido = pagamento.NumeroPedido;
             viewModel.Valor = pagamento.Valor;
             viewModel.Status = (int)pagamento.Status;
+            //viewModel.MensagemStatus = ObterDescricao(pagamento.Status);
+            viewModel.MensagemStatus = pagamento.Status.ObterDescricao();
 
             return viewModel;
         }
