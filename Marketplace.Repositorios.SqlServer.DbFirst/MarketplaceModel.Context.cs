@@ -31,5 +31,6 @@ namespace Marketplace.Repositorios.SqlServer.DbFirst
         public virtual DbSet<Pedido> Pedidoes { get; set; }
         public virtual DbSet<Produto> Produtoes { get; set; }
         public virtual DbSet<ProdutoFoto> ProdutoFotoes { get; set; }
+        public virtual DbSet<Cartao> Cartaos { get; set; }
     }
 }
