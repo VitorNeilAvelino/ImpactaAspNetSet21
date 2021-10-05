@@ -14,9 +14,13 @@ namespace Marketplace.Mvc.Controllers
         private readonly PagamentoRepositorio pagamentoRepositorio = new PagamentoRepositorio("http://localhost:57544/api");
 
         // GET: Pagamentos
-        public async Task<ActionResult> Index(int idCartao)
+        public async Task<ActionResult> Index(int? idCartao)
         {
-            return View(PagamentoViewModel.Mapear(await pagamentoRepositorio.ObterPorCartao(idCartao)));
+            if (!idCartao.HasValue) return View(new List<PagamentoIndexViewModel>());
+
+            TempData[nameof(idCartao)] = idCartao;
+
+            return View(PagamentoIndexViewModel.Mapear(await pagamentoRepositorio.ObterPorCartao(idCartao.Value)));
         }
 
         // GET: Pagamentos/Details/5
@@ -33,17 +37,30 @@ namespace Marketplace.Mvc.Controllers
 
         // POST: Pagamentos/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public async Task<ActionResult> Create(PagamentoCreateViewModel viewModel)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (!ModelState.IsValid)
+                {
+                    return View(viewModel);
+                }
 
-                return RedirectToAction("Index");
+                var pagamentoResponse = await pagamentoRepositorio.Post(PagamentoCreateViewModel.Mapear(viewModel));
+
+                if (pagamentoResponse.Status != 4)
+                {
+                    ModelState.AddModelError("", pagamentoResponse.MensagemStatus);
+
+                    return View(viewModel);
+                }
+
+                return RedirectToAction("Index", new { idCartao = TempData["idCartao"] });
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                // Logar(ex);
+                return View("Error");
             }
         }
 

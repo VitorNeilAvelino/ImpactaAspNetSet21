@@ -11,7 +11,11 @@ namespace GatewayPagamento.Repositorios.SqlServer.CodeFirst.Tests
         [TestMethod()]
         public void InserirCartaoTeste()
         {
-            contexto.Cartoes.Add(new Cartao { Limite = 1000, Numero = "1234123412341234" });
+            var cartao = new Cartao { Limite = 1000, Numero = "1234123412341234" };
+            
+            contexto.Cartoes.Add(cartao);
+            contexto.Pagamentos.Add(new Pagamento {Cartao = cartao, NumeroPedido = "1841", Status = StatusPagamento.PagamentoOK, Valor = 41 });
+
             contexto.SaveChanges();
         }
     }

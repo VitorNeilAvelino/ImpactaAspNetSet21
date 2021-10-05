@@ -4,6 +4,6 @@
     {
         public string NumeroCartao { get; set; }
         public string NumeroPedido { get; set; }
-        public int Valor { get; set; }
+        public decimal Valor { get; set; }
     }
 }

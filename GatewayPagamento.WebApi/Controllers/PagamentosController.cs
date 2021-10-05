@@ -40,19 +40,24 @@ namespace GatewayPagamento.WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var statusPagamento = pagamentoServico.Inserir(PagamentoPostViewModel.Mapear(viewModel));
+            var pagamento = PagamentoPostViewModel.Mapear(viewModel);
 
-            switch (statusPagamento)
+            pagamentoServico.Inserir(pagamento);
+
+            var responseViewModel = PagamentoGetViewModel.Mapear(pagamento);
+
+            switch (pagamento.Status)
             {
                 case StatusPagamento.SaldoIndisponivel:
                 case StatusPagamento.PedidoJaPago:
                 case StatusPagamento.CartaoInexistente:
-                    return BadRequest(statusPagamento.ObterDescricao());
+                    return Content(HttpStatusCode.BadRequest, responseViewModel);
                 case StatusPagamento.PagamentoOK:
-                    return Ok(new { Status = (int)statusPagamento, MensagemStatus = statusPagamento.ObterDescricao() });
+                    //return Ok(responseViewModel);
+                    return CreatedAtRoute("DefaultApi", new { id = responseViewModel.Id }, responseViewModel);
             }
 
-            return InternalServerError(new ArgumentOutOfRangeException(nameof(statusPagamento)));
+            return InternalServerError(new ArgumentOutOfRangeException(nameof(pagamento.Status)));
         }
 
         // PUT api/<controller>/5

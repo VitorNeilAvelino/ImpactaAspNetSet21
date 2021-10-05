@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace Marketplace.Mvc.Models
 {
-    public class PagamentoViewModel
+    public class PagamentoIndexViewModel
     {
         public int Id { get; set; }
         
@@ -16,9 +16,9 @@ namespace Marketplace.Mvc.Models
         
         public decimal Valor { get; set; }
 
-        internal static List<PagamentoViewModel> Mapear(List<PagamentoResponse> pagamentos)
+        internal static List<PagamentoIndexViewModel> Mapear(List<PagamentoResponse> pagamentos)
         {
-            var viewModels = new List<PagamentoViewModel>();
+            var viewModels = new List<PagamentoIndexViewModel>();
 
             foreach (var pagamento in pagamentos)
             {
@@ -28,9 +28,9 @@ namespace Marketplace.Mvc.Models
             return viewModels;
         }
 
-        private static PagamentoViewModel Mapear(PagamentoResponse pagamento)
+        private static PagamentoIndexViewModel Mapear(PagamentoResponse pagamento)
         {
-            var viewModel = new PagamentoViewModel();
+            var viewModel = new PagamentoIndexViewModel();
 
             viewModel.MascaraCartao = pagamento.MascaraCartao;
             viewModel.Id = pagamento.Id;
