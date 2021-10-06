@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpoCenter.Repositorios.Sql
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpoCenter.Repositorios.SqlServerTests", "ExpoCenter.Repositorios.SqlServerTests\ExpoCenter.Repositorios.SqlServerTests.csproj", "{3B3F3EE5-1C65-4843-8439-7C47A63E6E7A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpoCenter.Mvc", "ExpoCenter.Mvc\ExpoCenter.Mvc.csproj", "{1DB59EB2-389D-44DC-B621-A0C8516C5CB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{3B3F3EE5-1C65-4843-8439-7C47A63E6E7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B3F3EE5-1C65-4843-8439-7C47A63E6E7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B3F3EE5-1C65-4843-8439-7C47A63E6E7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DB59EB2-389D-44DC-B621-A0C8516C5CB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DB59EB2-389D-44DC-B621-A0C8516C5CB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DB59EB2-389D-44DC-B621-A0C8516C5CB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DB59EB2-389D-44DC-B621-A0C8516C5CB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{3A229146-EFBC-4E6F-A8DA-5B355AB329E0} = {3EFF7267-2DC9-46BD-A545-56B032118633}
 		{18B0E4DE-9279-4A9A-BCFB-6668CCBC559C} = {3EFF7267-2DC9-46BD-A545-56B032118633}
 		{3B3F3EE5-1C65-4843-8439-7C47A63E6E7A} = {3EFF7267-2DC9-46BD-A545-56B032118633}
+		{1DB59EB2-389D-44DC-B621-A0C8516C5CB0} = {3EFF7267-2DC9-46BD-A545-56B032118633}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {69E8D107-D792-4F83-90B7-EF935F0F13DF}
