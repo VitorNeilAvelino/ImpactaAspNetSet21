@@ -26,7 +26,12 @@ namespace ExpoCenter.Mvc.Controllers
         // GET: Eventos
         public async Task<ActionResult> Index()
         {
-            return View(mapper.Map<List<EventoViewModel>>(await _context.Eventos.ToListAsync()));            
+            var eventos = await _context.Eventos
+                            .OrderBy(e => e.Data)
+                            .ThenBy(e => e.Descricao)
+                            .ToListAsync();
+
+            return View(mapper.Map<List<EventoViewModel>>(eventos));
         }
 
         // GET: Eventos/Details/5
@@ -58,14 +63,16 @@ namespace ExpoCenter.Mvc.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descricao,Data,Local,Preco")] Evento evento)
+        public async Task<IActionResult> Create(EventoViewModel evento)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(evento);
+                _context.Add(mapper.Map<Evento>(evento));
                 await _context.SaveChangesAsync();
+                
                 return RedirectToAction(nameof(Index));
             }
+            
             return View(evento);
         }
 
@@ -78,11 +85,13 @@ namespace ExpoCenter.Mvc.Controllers
             }
 
             var evento = await _context.Eventos.FindAsync(id);
+
             if (evento == null)
             {
                 return NotFound();
             }
-            return View(evento);
+
+            return View(mapper.Map<EventoViewModel>(evento));
         }
 
         // POST: Eventos/Edit/5
@@ -90,7 +99,7 @@ namespace ExpoCenter.Mvc.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Descricao,Data,Local,Preco")] Evento evento)
+        public async Task<IActionResult> Edit(int id, EventoViewModel evento)
         {
             if (id != evento.Id)
             {
@@ -101,7 +110,7 @@ namespace ExpoCenter.Mvc.Controllers
             {
                 try
                 {
-                    _context.Update(evento);
+                    _context.Update(mapper.Map<Evento>(evento));
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -115,8 +124,10 @@ namespace ExpoCenter.Mvc.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(evento);
         }
 
@@ -128,24 +139,26 @@ namespace ExpoCenter.Mvc.Controllers
                 return NotFound();
             }
 
-            var evento = await _context.Eventos
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var evento = await _context.Eventos.SingleOrDefaultAsync(m => m.Id == id);
+
             if (evento == null)
             {
                 return NotFound();
             }
 
-            return View(evento);
+            return View(mapper.Map<EventoViewModel>(evento));
         }
 
         // POST: Eventos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
             var evento = await _context.Eventos.FindAsync(id);
+
             _context.Eventos.Remove(evento);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
