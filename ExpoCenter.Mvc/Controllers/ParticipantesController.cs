@@ -1,13 +1,9 @@
 ﻿using AutoMapper;
-using ExpoCenter.Dominio.Entidades;
 using ExpoCenter.Mvc.Models;
 using ExpoCenter.Repositorios.SqlServer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ExpoCenter.Mvc.Controllers
 {
@@ -75,13 +71,11 @@ namespace ExpoCenter.Mvc.Controllers
             }
         }
 
-        // GET: ParticipantesController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
-
-        // POST: ParticipantesController/Delete/5
+                
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
