@@ -1,13 +1,10 @@
-﻿using GatewayPagamento.Apoio;
-using GatewayPagamento.Dominio.Entidades;
+﻿using GatewayPagamento.Dominio.Entidades;
 using GatewayPagamento.Dominio.Servicos;
 using GatewayPagamento.Repositorios.SqlServer.CodeFirst;
 using GatewayPagamento.WebApi.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace GatewayPagamento.WebApi.Controllers

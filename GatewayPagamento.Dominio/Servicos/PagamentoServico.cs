@@ -1,10 +1,6 @@
 ﻿using GatewayPagamento.Dominio.Entidades;
 using GatewayPagamento.Dominio.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GatewayPagamento.Dominio.Servicos
 {
