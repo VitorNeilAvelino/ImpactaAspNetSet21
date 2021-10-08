@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ExpoCenter.Mvc.Models
 {
-    public class ParticipanteViewModel
+    public class ParticipanteIndexViewModel
     {
         private string cpf;
 

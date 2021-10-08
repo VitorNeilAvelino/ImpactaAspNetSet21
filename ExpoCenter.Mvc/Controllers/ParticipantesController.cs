@@ -24,7 +24,7 @@ namespace ExpoCenter.Mvc.Controllers
 
         public ActionResult Index()
         {
-            return View(mapper.Map<List<ParticipanteViewModel>>(dbContext.Participantes));            
+            return View(mapper.Map<List<ParticipanteIndexViewModel>>(dbContext.Participantes));            
         }
 
         // GET: ParticipantesController/Details/5
@@ -36,21 +36,42 @@ namespace ExpoCenter.Mvc.Controllers
         // GET: ParticipantesController/Create
         public ActionResult Create()
         {
-            return View();
+            var viewModel = new ParticipanteCreateViewModel();
+
+            viewModel.Eventos = mapper.Map<List<EventoGridViewModel>>(dbContext.Eventos);
+            
+            return View(viewModel);
         }
 
         // POST: ParticipantesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(ParticipanteCreateViewModel viewModel)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(ModelState);
+                }
+
+                var participante = mapper.Map<Participante>(viewModel);
+
+                participante.Eventos = new List<Evento>();
+
+                foreach (var evento in viewModel.Eventos.Where(e => e.Selecionado))
+                {
+                    participante.Eventos.Add(dbContext.Eventos.Single(e => e.Id == evento.Id));
+                }
+
+                dbContext.Participantes.Add(participante);
+                dbContext.SaveChanges();
+
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View("Error");
             }
         }
 
