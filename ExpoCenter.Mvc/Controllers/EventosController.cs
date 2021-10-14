@@ -69,10 +69,10 @@ namespace ExpoCenter.Mvc.Controllers
             {
                 _context.Add(mapper.Map<Evento>(evento));
                 await _context.SaveChangesAsync();
-                
+
                 return RedirectToAction(nameof(Index));
             }
-            
+
             return View(evento);
         }
 
@@ -181,6 +181,31 @@ namespace ExpoCenter.Mvc.Controllers
             }
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Participantes(EventoViewModel viewModel)
+        {
+            var evento = _context.Eventos.Find(viewModel.Id);
+
+            foreach (var participante in viewModel.Participantes)
+            {
+                if (participante.Selecionado)
+                {
+                    if (evento.Participantes.Any(p => p.Id == participante.Id)) continue;
+
+                    evento.Participantes.Add(_context.Participantes.Find(participante.Id));
+                }
+                else
+                {
+                    evento.Participantes.Remove(_context.Participantes.Find(participante.Id));
+                }
+            }
+
+            _context.Update(evento);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
