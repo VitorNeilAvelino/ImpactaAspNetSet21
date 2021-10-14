@@ -166,5 +166,21 @@ namespace ExpoCenter.Mvc.Controllers
         {
             return _context.Eventos.Any(e => e.Id == id);
         }
+
+        public ActionResult Participantes(int id)
+        {
+            var evento = _context.Eventos.Find(id);
+
+            var viewModel = mapper.Map<EventoViewModel>(evento);
+
+            viewModel.Participantes = mapper.Map<List<ParticipanteGridViewModel>>(_context.Participantes);
+
+            foreach (var participante in evento.Participantes)
+            {
+                viewModel.Participantes.Single(p => p.Id == participante.Id).Selecionado = true;
+            }
+
+            return View(viewModel);
+        }
     }
 }
