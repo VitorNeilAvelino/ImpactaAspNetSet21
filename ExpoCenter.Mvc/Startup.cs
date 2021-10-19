@@ -1,20 +1,15 @@
 using ExpoCenter.Mvc.Data;
 using ExpoCenter.Repositorios.SqlServer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace ExpoCenter.Mvc
 {
@@ -43,7 +38,8 @@ namespace ExpoCenter.Mvc
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             //services.AddDefaultIdentity<IdentityUser>(options => { 
-            services.AddIdentity<IdentityUser, IdentityRole>(options => { 
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
                 options.SignIn.RequireConfirmedAccount = true;
 
                 options.Password.RequireDigit = false;
@@ -54,16 +50,20 @@ namespace ExpoCenter.Mvc
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI();
-            
+
             services.AddControllersWithViews();
 
             services.AddAuthorization(o => o
                 //.AddPolicy("ParticipantesExcluir", p => p
                 //    .RequireRole("Gerente")
                 //    .RequireClaim("Participantes", "Excluir"))
-                .AddPolicy("ParticipantesExcluir", p => p
-                    .RequireAssertion(c => c.User.IsInRole("Gerente") || c.User.HasClaim("Participantes", "Excluir")))
+                .AddPolicy("ParticipantesExcluir", ParticipantesExcluirPolicy)
                 );
+        }
+
+        private void ParticipantesExcluirPolicy(AuthorizationPolicyBuilder builder)
+        {
+            builder.RequireAssertion(c => c.User.IsInRole("Gerente") || c.User.HasClaim("Participantes", "Excluir"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
