@@ -11,8 +11,12 @@ namespace ExpoCenter.Repositorios.SqlServer.ModelConfiguration
             builder.ToTable("Pagamento");
 
             builder
-                .Property(e => e.Valor)
+                .Property(p => p.Valor)
                 .HasPrecision(11, 2); // 999 999 999 99
+
+            //builder
+            //    .Property(p => p.Status)
+                //.Ignore();
         }
     }
 }

@@ -77,7 +77,7 @@ namespace ExpoCenter.Repositorios.SqlServer.Tests
             var pagamento = new Pagamento();
             pagamento.IdCartao = Guid.NewGuid();
             pagamento.IdProduto = Guid.NewGuid();
-            pagamento.Valor = 22.25m;
+            pagamento.Valor = 20.23m;
 
             dbContext.Add(pagamento);
             dbContext.SaveChanges();

@@ -8,6 +8,7 @@ namespace ExpoCenter.Dominio.Entidades
         public Guid IdProduto { get; set; }
         public Guid IdCartao { get; set; }
         public decimal Valor { get; set; }
-        public DateTime Data { get; set; } = DateTime.Now;        
+        public DateTime Data { get; set; } = DateTime.Now;
+        public int Status { get; set; }
     }
 }
