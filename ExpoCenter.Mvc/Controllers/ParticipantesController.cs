@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using ExpoCenter.Dominio.Entidades;
+using ExpoCenter.Mvc.Filters;
 using ExpoCenter.Mvc.Models;
 using ExpoCenter.Repositorios.SqlServer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -9,9 +11,11 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static ExpoCenter.Dominio.Entidades.PerfilUsuario;
 
 namespace ExpoCenter.Mvc.Controllers
 {
+    [Authorize]
     public class ParticipantesController : Controller
     {
         private readonly ExpoCenterDbContext dbContext;// = new ExpoCenterDbContext();
@@ -23,6 +27,7 @@ namespace ExpoCenter.Mvc.Controllers
             this.mapper = mapper;
         }
 
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(mapper.Map<List<ParticipanteIndexViewModel>>(dbContext.Participantes));            
@@ -76,7 +81,9 @@ namespace ExpoCenter.Mvc.Controllers
             }
         }
 
-        // GET: ParticipantesController/Edit/5
+        //[Authorize(Roles = "Master")] // Empilhamento é o and lógico.
+        //[AuthorizeAttribute(Roles = "Administrador, Gerente")] // vírgula é um or lógico.
+        [AuthorizeRole(Administrador, Gerente)]
         public ActionResult Edit(int id)
         {
             //var participante = dbContext.Participantes.Include(p => p.Eventos).SingleOrDefault(p => p.Id == id);
@@ -101,9 +108,9 @@ namespace ExpoCenter.Mvc.Controllers
             return View(viewModel);
         }
 
-        // POST: ParticipantesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRole(Administrador, Gerente)]
         public ActionResult Edit(ParticipanteCreateViewModel viewModel)
         {
             try
@@ -170,9 +177,15 @@ namespace ExpoCenter.Mvc.Controllers
             }
         }
 
-        // GET: ParticipantesController/Delete/5
+        //[AuthorizeRole(Gerente)]
+        [Authorize(Policy = "ParticipantesExcluir")]
         public ActionResult Delete(int id)
         {
+            //if (!User.HasClaim("Participantes", "Excluir") || User.IsInRole("Gerente"))
+            //{
+            //    return new ForbidResult();
+            //}
+
             return View();
         }
 

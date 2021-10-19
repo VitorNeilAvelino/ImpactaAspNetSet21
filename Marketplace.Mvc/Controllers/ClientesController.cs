@@ -137,6 +137,8 @@ namespace Marketplace.Mvc.Controllers
         // GET: Clientes/Delete/5
         public ActionResult Delete(int id)
         {
+            //User.HasClaim("Cadê");
+
             var usuarioLogado = (ClaimsPrincipal)Thread.CurrentPrincipal;
 
             if (!usuarioLogado.HasClaim("Clientes", "Excluir"))

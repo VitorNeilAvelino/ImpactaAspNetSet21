@@ -42,7 +42,8 @@ namespace ExpoCenter.Mvc
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => { 
+            //services.AddDefaultIdentity<IdentityUser>(options => { 
+            services.AddIdentity<IdentityUser, IdentityRole>(options => { 
                 options.SignIn.RequireConfirmedAccount = true;
 
                 options.Password.RequireDigit = false;
@@ -51,9 +52,18 @@ namespace ExpoCenter.Mvc
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 3;
             })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI();
             
             services.AddControllersWithViews();
+
+            services.AddAuthorization(o => o
+                //.AddPolicy("ParticipantesExcluir", p => p
+                //    .RequireRole("Gerente")
+                //    .RequireClaim("Participantes", "Excluir"))
+                .AddPolicy("ParticipantesExcluir", p => p
+                    .RequireAssertion(c => c.User.IsInRole("Gerente") || c.User.HasClaim("Participantes", "Excluir")))
+                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
