@@ -15,8 +15,7 @@ namespace ExpoCenter.Repositorios.SqlServer.ModelConfiguration
                 .HasPrecision(11, 2); // 999 999 999 99
 
             //builder
-            //    .Property(p => p.Status)
-                //.Ignore();
+            //    .Ignore(p => p.Status);
         }
     }
 }
