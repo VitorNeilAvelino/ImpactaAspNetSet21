@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ExpoCenter.Dominio.Entidades;
@@ -21,14 +19,12 @@ namespace ExpoCenter.WebApi.Controllers
             _context = context;
         }
 
-        // GET: api/Pagamentos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Pagamento>>> GetPagamentos()
         {
             return await _context.Pagamentos.ToListAsync();
         }
 
-        // GET: api/Pagamentos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Pagamento>> GetPagamento(int id)
         {
@@ -42,8 +38,6 @@ namespace ExpoCenter.WebApi.Controllers
             return pagamento;
         }
 
-        // PUT: api/Pagamentos/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPagamento(int id, Pagamento pagamento)
         {
@@ -73,8 +67,6 @@ namespace ExpoCenter.WebApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Pagamentos
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Pagamento>> PostPagamento(Pagamento pagamento)
         {
@@ -84,7 +76,6 @@ namespace ExpoCenter.WebApi.Controllers
             return CreatedAtAction("GetPagamento", new { id = pagamento.Id }, pagamento);
         }
 
-        // DELETE: api/Pagamentos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePagamento(int id)
         {
