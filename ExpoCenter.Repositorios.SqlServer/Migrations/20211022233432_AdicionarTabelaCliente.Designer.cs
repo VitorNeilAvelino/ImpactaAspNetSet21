@@ -4,14 +4,16 @@ using ExpoCenter.Repositorios.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExpoCenter.Repositorios.SqlServer.Migrations
 {
     [DbContext(typeof(ExpoCenterDbContext))]
-    partial class ExpoCenterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211022233432_AdicionarTabelaCliente")]
+    partial class AdicionarTabelaCliente
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
